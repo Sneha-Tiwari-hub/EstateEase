@@ -1,0 +1,884 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EstateEase | Find Your Dream Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <header class="navbar">
+        <a href="#" class="logo">Estate<span>Ease.</span></a>
+
+        <nav class="nav-links">
+    <a href="#home" class="active">Home</a>
+    <a href="#properties">Properties</a>
+    <a href="#compare">Compare</a>
+    <a href="#dashboard">My Dashboard</a>
+    <a href="#about">About Us</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+        <a href="#properties" class="nav-button">Explore Properties</a>
+    </header>
+
+
+    <!-- HERO / HOME SECTION -->
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+            <p class="eyebrow">YOUR NEXT CHAPTER STARTS HERE</p>
+
+            <h1>Find a place<br>you'll <span>love to call home.</span></h1>
+
+            <p class="hero-description">
+                Discover thoughtfully selected properties.
+                Explore better living with EstateEase.
+            </p>
+
+            <!-- SEARCH BAR -->
+            <form class="search-box" id="searchForm">
+
+                <div class="search-field">
+                    <label for="locationInput">Location or property</label>
+                    <input
+                        type="text"
+                        id="locationInput"
+                        placeholder="Try Whitefield, Bengaluru..."
+                    >
+                </div>
+
+                <div class="search-field">
+                    <label for="typeInput">Property type</label>
+                    <select id="typeInput">
+                        <option value="All">All Properties</option>
+                        <option value="Apartment">Apartment</option>
+                        <option value="Villa">Villa</option>
+                        <option value="Penthouse">Penthouse</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="search-button">
+                    Search Properties
+                </button>
+
+            </form>
+
+            <div class="hero-stats">
+                <div>
+                    <h3>120+</h3>
+                    <p>Properties</p>
+                </div>
+                <div>
+                    <h3>15+</h3>
+                    <p>Locations</p>
+                </div>
+                <div>
+                    <h3>500+</h3>
+                    <p>Happy Customers</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- PROPERTY SECTION -->
+    <section class="properties-section" id="properties">
+
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">EXPLORE OUR COLLECTION</p>
+                <h2>Featured Properties</h2>
+                <p class="section-description">
+                    Discover properties selected for your lifestyle.
+                </p>
+            </div>
+
+            <a href="#properties" class="view-all">View Properties →</a>
+        </div>
+
+
+        <!-- CATEGORY FILTERS -->
+        <div class="category-filters">
+
+            <button class="filter-btn selected" data-category="All">
+                All Properties
+            </button>
+
+            <button class="filter-btn" data-category="Apartment">
+                Apartments
+            </button>
+
+            <button class="filter-btn" data-category="Villa">
+                Villas
+            </button>
+
+            <button class="filter-btn" data-category="Penthouse">
+                Penthouses
+            </button>
+
+        </div>
+
+
+        <!-- PROPERTY CARDS WILL APPEAR HERE -->
+        <div class="property-grid" id="propertyGrid"></div>
+        
+<!-- 1. PROPERTY DETAILS POPUP -->
+
+<div class="modal" id="propertyModal">
+
+    <div class="modal-content">
+
+        <button class="close-modal" id="closeModal">
+            &times;
+        </button>
+
+        <img id="modalImage" src="" alt="Property">
+
+        <div class="modal-info">
+
+            <p class="eyebrow">PROPERTY DETAILS</p>
+
+            <h2 id="modalName"></h2>
+
+            <p id="modalLocation"></p>
+
+            <h3 id="modalPrice"></h3>
+
+            <div class="modal-features" id="modalFeatures"></div>
+
+            <h4>About this property</h4>
+
+            <p id="modalDescription"></p>
+
+            <button class="modal-book-button" id="bookButton">
+                Book a Visit
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- 2. BOOKING FORM MODAL -->
+
+<div class="modal" id="bookingModal">
+
+    <div class="modal-content booking-content">
+
+        <button class="close-modal" id="closeBookingModal">
+            &times;
+        </button>
+
+        <div class="modal-info">
+
+            <p class="eyebrow">ESTATEEASE</p>
+
+            <h2>Book a Property Visit</h2>
+
+            <p id="bookingPropertyName"></p>
+
+            <form id="bookingForm">
+
+                <label for="customerName">Full Name</label>
+                <input type="text" id="customerName"
+                    placeholder="Enter your name" required>
+
+                <label for="customerEmail">Email Address</label>
+                <input type="email" id="customerEmail"
+                    placeholder="Enter your email" required>
+
+                <label for="visitDate">Preferred Visit Date</label>
+                <input type="date" id="visitDate" required>
+
+                <label for="visitTime">Preferred Visit Time</label>
+                <select id="visitTime" required>
+                    <option value="">Select a time</option>
+                    <option value="10:00 AM">10:00 AM</option>
+                    <option value="12:00 PM">12:00 PM</option>
+                    <option value="02:00 PM">02:00 PM</option>
+                    <option value="04:00 PM">04:00 PM</option>
+                </select>
+
+                <button type="submit" class="modal-book-button">
+                    Confirm Visit
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- 3. BOOKING CONFIRMATION MODAL -->
+
+<div class="modal" id="bookingConfirmationModal">
+
+    <div class="modal-content booking-content">
+
+        <div class="modal-info" style="text-align:center;">
+
+            <h2 style="color:#b78b48;">
+                ✓ Booking Confirmed!
+            </h2>
+
+            <p>Your property visit request has been saved successfully.</p>
+
+            <h3 id="confirmedProperty"></h3>
+
+            <p id="confirmedDate"></p>
+
+            <p id="confirmedTime"></p>
+
+            <button class="modal-book-button" id="finishBooking">
+                Done
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+        <p class="no-results" id="noResults">
+            No properties found. Try another search.
+        </p>
+
+    </section>
+
+<!-- PAYMENT DEMO MODAL -->
+
+<div class="modal" id="paymentModal">
+
+    <div class="modal-content booking-content">
+
+        <button type="button" class="close-modal" id="closePaymentModal">
+            &times;
+        </button>
+
+        <div class="modal-info">
+
+            <p class="eyebrow">SECURE CHECKOUT - DEMO</p>
+
+            <h2>Complete Your Payment</h2>
+
+            <p id="paymentPropertyName"></p>
+
+            <div class="payment-summary">
+                <p>Booking Fee</p>
+                <h2>₹500</h2>
+                <p class="payment-note">Demo amount only. No real payment will be made.</p>
+            </div>
+
+            <form id="paymentForm">
+
+                <label>Select Payment Method</label>
+
+                <div class="payment-method">
+                    <label>
+                        <input type="radio" name="paymentMethod"
+                            value="UPI" required>
+                        UPI
+                    </label>
+
+                    <label>
+                        <input type="radio" name="paymentMethod"
+                            value="Card">
+                        Debit / Credit Card
+                    </label>
+
+                    <label>
+                        <input type="radio" name="paymentMethod"
+                            value="Net Banking">
+                        Net Banking
+                    </label>
+                </div>
+
+                <button type="submit" class="modal-book-button">
+                    Confirm Demo Payment
+                </button>
+
+            </form>
+
+            <p id="paymentSuccess" style="display:none;">
+                Demo payment successful!
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- RESCHEDULE BOOKING MODAL -->
+
+<div class="modal" id="rescheduleBookingModal">
+
+    <div class="modal-content booking-content">
+
+        <button type="button" class="close-modal"
+            id="closeRescheduleModal">
+            &times;
+        </button>
+
+        <div class="modal-info">
+
+            <p class="eyebrow">MANAGE YOUR VISIT</p>
+
+            <h2>Reschedule Your Visit</h2>
+
+            <p id="reschedulePropertyName"></p>
+
+            <form id="rescheduleBookingForm">
+
+                <label for="rescheduleDate">New Visit Date</label>
+                <input type="date" id="rescheduleDate" required>
+
+                <label for="rescheduleTime">New Visit Time</label>
+
+                <select id="rescheduleTime" required>
+                    <option value="">Select a time</option>
+                    <option value="10:00 AM">10:00 AM</option>
+                    <option value="12:00 PM">12:00 PM</option>
+                    <option value="02:00 PM">02:00 PM</option>
+                    <option value="04:00 PM">04:00 PM</option>
+                </select>
+
+                <button type="submit" class="modal-book-button">
+                    Save New Schedule
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- MY DASHBOARD SECTION -->
+
+<section class="dashboard-section" id="dashboard">
+
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">YOUR PERSONAL SPACE</p>
+            <h2>My Dashboard</h2>
+            <p class="section-description">
+                Your personal space to manage properties, visits and enquiries.
+            </p>
+        </div>
+    </div>
+
+    <!-- WELCOME BANNER -->
+
+    <div class="dashboard-welcome">
+        <div class="welcome-text">
+            <p class="welcome-label">WELCOME TO ESTATEEASE</p>
+            <h2>Your dream home journey, all in one place.</h2>
+            <p>
+                Keep track of your favourite homes, upcoming visits
+                and property enquiries.
+            </p>
+        </div>
+
+        <div class="dashboard-icon">⌂</div>
+    </div>
+
+
+
+<!-- PREMIUM CUSTOMER PROFILE -->
+
+<div class="dashboard-content-card profile-card">
+
+    <div class="profile-header">
+
+        <div class="profile-avatar" id="profileAvatar">
+            GU
+        </div>
+
+        <div class="profile-header-text">
+            <p class="dashboard-card-label">ACCOUNT SETTINGS</p>
+            <h3>My Profile</h3>
+            <p>Manage your personal information and account details.</p>
+        </div>
+
+        <span class="profile-status">Customer Account</span>
+
+    </div>
+
+    <div class="profile-divider"></div>
+
+    <form id="profileForm">
+
+        <h4 class="profile-section-title">
+            Personal Information
+        </h4>
+
+        <div class="profile-form-grid">
+
+            <div class="profile-field">
+                <label for="profileName">Full Name</label>
+                <input
+                    type="text"
+                    id="profileName"
+                    placeholder="Enter your full name"
+                    required
+                >
+            </div>
+
+            <div class="profile-field">
+                <label for="profileEmail">Email Address</label>
+                <input
+                    type="email"
+                    id="profileEmail"
+                    placeholder="Enter your email address"
+                    required
+                >
+            </div>
+
+            <div class="profile-field">
+                <label for="profilePhone">Phone Number</label>
+                <input
+                    type="tel"
+                    id="profilePhone"
+                    placeholder="Enter your phone number"
+                    required
+                >
+            </div>
+
+        </div>
+
+        <div class="profile-actions">
+
+            <p id="profileSuccess" class="profile-success"
+                style="display:none;">
+                ✓ Profile updated successfully!
+            </p>
+
+            <button type="submit" class="profile-save-button">
+                Save Changes
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+
+    <!-- DASHBOARD STATISTICS -->
+
+    <div class="dashboard-stats">
+
+        <div class="dashboard-stat">
+            <div class="stat-icon">▣</div>
+            <div>
+                <h3 id="bookingCount">0</h3>
+                <p>My Bookings</p>
+            </div>
+        </div>
+
+        <div class="dashboard-stat">
+            <div class="stat-icon">♡</div>
+            <div>
+                <h3 id="favoriteCount">0</h3>
+                <p>My Favourites</p>
+            </div>
+        </div>
+
+        
+
+    </div>
+
+    <!-- MY BOOKINGS -->
+
+    <div class="dashboard-content-card">
+        <div class="dashboard-card-heading">
+            <div>
+                <p class="dashboard-card-label">YOUR SCHEDULE</p>
+                <h3>My Bookings</h3>
+            </div>
+            <span class="dashboard-heading-icon">▣</span>
+        </div>
+
+        <div id="dashboardBookings">
+            <p>No bookings yet. Explore properties and book a visit!</p>
+        </div>
+    </div>
+
+    <!-- MY FAVOURITES -->
+
+    <div class="dashboard-content-card">
+        <div class="dashboard-card-heading">
+            <div>
+                <p class="dashboard-card-label">SAVED COLLECTION</p>
+                <h3>My Favourite Properties</h3>
+            </div>
+            <span class="dashboard-heading-icon">♡</span>
+        </div>
+
+        <div id="dashboardFavorites">
+            <p>You haven't saved any favourite properties yet.</p>
+        </div>
+    </div><div class="dashboard-stat">
+
+    <div class="stat-icon">✉</div>
+
+    <div>
+        <h3 id="enquiryCount">0</h3>
+        <p>My Enquiries</p>
+    </div>
+
+</div>
+
+
+    <!-- MY ENQUIRIES -->
+
+    <!-- CUSTOMER ENQUIRY HISTORY -->
+
+<div class="dashboard-content-card dashboard-enquiries-card">
+
+    <div class="dashboard-card-heading">
+
+        <div>
+            <p class="dashboard-card-label">COMMUNICATION CENTRE</p>
+            <h3>My Enquiries</h3>
+            <p class="dashboard-card-description">
+                View the enquiries you have submitted about properties.
+            </p>
+        </div>
+
+        <div class="dashboard-heading-icon">✉</div>
+
+    </div>
+
+    <div id="dashboardEnquiries">
+        <p>You haven't submitted any enquiries yet.</p>
+    </div>
+
+    <div class="enquiry-footer-note">
+        <span>✦</span>
+        Your property questions and requests in one place.
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- PROPERTY COMPARISON SECTION -->
+
+<section class="compare-section" id="compare">
+
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">MAKE THE RIGHT CHOICE</p>
+            <h2>Compare Properties</h2>
+            <p class="section-description">
+                Compare your selected properties and find your perfect home.
+            </p>
+        </div>
+    </div>
+
+    <div id="compareContainer">
+
+        <div class="compare-empty">
+            <h3>No Properties Selected</h3>
+            <p>
+                Select up to 3 properties using the Compare button
+                to see them side by side.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about-section" id="about">
+
+        <div class="about-content">
+            <p class="eyebrow">WHY ESTATEEASE?</p>
+
+            <h2>A simpler way to find your perfect property.</h2>
+
+            <p>
+                We believe finding a home should be an exciting experience,
+                not a complicated process. EstateEase brings property
+                discovery and exploration together in one convenient place.
+            </p>
+
+            <a href="#properties" class="about-button">
+                Start Exploring
+            </a>
+        </div>
+
+        <div class="about-card">
+            <div class="about-icon">⌂</div>
+            <h3>Find your place</h3>
+            <p>
+                Explore different property options and discover a space
+                that suits your needs.
+            </p>
+        </div>
+
+    </section>
+
+
+<!-- CUSTOMER SUPPORT & FAQ -->
+
+<section class="faq-section" id="faq">
+
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">CUSTOMER SUPPORT</p>
+            <h2>Frequently Asked Questions</h2>
+            <p class="section-description">
+                Find answers to common questions about EstateEase.
+            </p>
+        </div>
+    </div>
+
+    <div class="faq-container">
+
+        <details class="faq-item">
+            <summary>How can I explore available properties?</summary>
+            <p>Visit the Properties section to browse available homes.
+            You can search by location and use filters to find suitable properties.</p>
+        </details>
+
+        <details class="faq-item">
+            <summary>How can I book a property visit?</summary>
+            <p>Select a property, click Book a Visit, enter your details,
+            and complete the demo payment process.</p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Can I reschedule my property visit?</summary>
+            <p>Yes. Open My Dashboard and select Reschedule
+            under the booking you want to update.</p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Can I cancel my booking?</summary>
+            <p>Yes. Open My Dashboard and select Cancel Booking
+            under the relevant booking.</p>
+        </details>
+
+        <details class="faq-item">
+            <summary>How can I save my favourite properties?</summary>
+            <p>Click the heart icon on a property card.
+            Your favourites will appear in My Dashboard.</p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Are payments processed online?</summary>
+            <p>No. EstateEase currently uses a simulated payment
+            system for demonstration purposes only. No real payment is processed.</p>
+        </details>
+
+    </div>
+
+    <div class="faq-contact">
+        <h3>Still need assistance?</h3>
+        <p>Our support team is here to help you.</p>
+        <a href="#contact" class="faq-contact-button">Contact Us</a>
+    </div>
+
+</section>
+
+
+<!-- CUSTOMER CONTACT SECTION -->
+
+<section class="contact-section" id="contact">
+
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">WE ARE HERE TO HELP</p>
+            <h2>Get in Touch</h2>
+            <p class="section-description">
+                Have questions about a property? Send us an enquiry.
+                Our team will be happy to help.
+            </p>
+        </div>
+    </div>
+
+    <div class="contact-container">
+
+        <!-- CONTACT INFORMATION -->
+
+        <div class="contact-info">
+
+            <h3>Let's Connect</h3>
+
+            <p>
+                Looking for your dream home?
+                Contact EstateEase for assistance.
+            </p>
+
+            <div class="contact-detail">
+                <strong>Email</strong>
+                <p>hello@estateease.example</p>
+            </div>
+
+            <div class="contact-detail">
+                <strong>Service</strong>
+                <p>Property Discovery & Booking</p>
+            </div>
+
+        </div>
+
+        <!-- ENQUIRY FORM -->
+
+        <div class="contact-form-container">
+
+            <h3>Send an Enquiry</h3>
+
+            <form id="contactForm">
+
+                <label for="contactName">Full Name</label>
+                <input
+                    type="text"
+                    id="contactName"
+                    placeholder="Enter your name"
+                    required
+                >
+
+                <label for="contactEmail">Email Address</label>
+                <input
+                    type="email"
+                    id="contactEmail"
+                    placeholder="Enter your email"
+                    required
+                >
+
+                <label for="contactPhone">Phone Number</label>
+                <input
+                    type="tel"
+                    id="contactPhone"
+                    placeholder="Enter your phone number"
+                    required
+                >
+
+                <label for="contactProperty">Interested Property</label>
+                <select id="contactProperty" required>
+                    <option value="">Select a property</option>
+                </select>
+
+                <label for="contactMessage">Your Message</label>
+                <textarea
+                    id="contactMessage"
+                    rows="4"
+                    placeholder="Write your enquiry here..."
+                    required
+                ></textarea>
+
+                <button type="submit" class="contact-submit-button">
+                    Send Enquiry
+                </button>
+
+                <p id="contactSuccess" style="display:none;">
+                    Thank you! Your enquiry has been submitted.
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+    <!-- CONTACT SECTION -->
+    <footer class="footer" id="contact">
+
+        <div>
+            <a href="#" class="logo footer-logo">
+                Estate<span>Ease.</span>
+            </a>
+            <p>Making property discovery easier.</p>
+        </div>
+
+        <div class="footer-right">
+            <p>Have questions? Contact us.</p>
+            <a href="mailto:hello@estateease.example">
+                hello@estateease.example
+            </a>
+        </div>
+
+        <p class="copyright">
+            © 2026 EstateEase. Demo internship project.
+        </p>
+
+    </footer>
+
+
+<!-- EDIT ENQUIRY MODAL -->
+
+<div class="modal" id="editEnquiryModal">
+
+    <div class="modal-content">
+
+        <span class="close-modal" id="closeEditEnquiry">
+            &times;
+        </span>
+
+        <h2>Edit Your Enquiry</h2>
+
+        <p>Update your property enquiry details below.</p>
+
+        <form id="editEnquiryForm">
+
+            <label for="editEnquiryName">Full Name</label>
+            <input type="text" id="editEnquiryName" required>
+
+            <label for="editEnquiryEmail">Email Address</label>
+            <input type="email" id="editEnquiryEmail" required>
+
+            <label for="editEnquiryPhone">Phone Number</label>
+            <input type="tel" id="editEnquiryPhone" required>
+
+            <label for="editEnquiryMessage">Your Message</label>
+            <textarea id="editEnquiryMessage" rows="4" required></textarea>
+
+            <div class="edit-enquiry-actions">
+
+                <button type="submit" class="save-enquiry-button">
+                    Save Changes
+                </button>
+
+                <button type="button" id="cancelEditEnquiry">
+                    Cancel
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- LOAD JAVASCRIPT AFTER ALL HTML ELEMENTS -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
